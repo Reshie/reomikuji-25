@@ -1,0 +1,23 @@
+version: '3'
+services:
+  backend:
+    build: 
+      context: backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/workspace
+    ports:
+      - "3000:3000"
+    command: sleep infinity
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/workspace
+    ports:
+      - "8080:8080"
+    command: sleep infinity
+    links:
+      - backend
