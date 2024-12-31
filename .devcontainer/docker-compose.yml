@@ -3,11 +3,13 @@ services:
   backend:
     build: 
       context: ../backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ../backend:/workspace
+    env_file:
+      - ../backend/.env
     ports:
-      - "3000:3000"
+      - "8080:8080"
     command: sleep infinity
 
   frontend:
@@ -17,7 +19,7 @@ services:
     volumes:
       - ../frontend:/workspace
     ports:
-      - "8080:8080"
+      - "5173:5173"
     command: sleep infinity
     depends_on:
       - backend
