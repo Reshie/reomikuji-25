@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap');
+
+/* 全体スタイル */
+.app {
+  height: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  padding-top: 50px;
+}
+
+.rays {
+  position: fixed;
+  overflow: hidden;
+  z-index: -1;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.rays:after {
+  width: 400%;
+  height: 400%;
+  content: '';
+  display: block;
+  position: absolute;
+  top: calc(-190% + 50px); right: -150%;
+  background: repeating-conic-gradient(
+    transparent,
+    transparent 6deg,
+    #d9a521 6deg 12deg
+    );
+    animation: rotate-gradient 90s linear infinite;
+}
+
+.step-1 > .rays:after {  
+  transition: 0s;
+  filter: grayscale(100%);
+  opacity: 0.2;
+}
+  
+:not(.step-1) > .rays:after {
+  transition: 3s;
+  opacity: 0.8;
+}
+
+.step-4 > .rays.bad-fortune:after {
+  filter: invert(1);
+}
+
+@keyframes rotate-gradient {
+  to { transform: rotate(360deg) }
+}
+
+#god {
+  margin: 0 auto;
+  width: 40%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: -1;
+}
+
+.app .title {
+  font-size: 1.3rem;
+}
+
+button {
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  background-color: #5b9fff;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition-duration: 0.2s;
+}
+
+button:disabled {
+  background-color: #c7c7c7;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* 各画面のスタイル */
+.input-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-screen textarea {
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  max-width: 300px;
+}
+
+.loading-screen {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-screen p {
+  font-weight: bold;
+  font-size: 1.2em;
+  animation: text-float 0.5s ;
+}
+
+.complete-screen {
+  padding-top: 60px;
+}
+
+.complete-screen > button {
+  animation: text-float 0.5s;
+}
+
+@keyframes text-float {
+  from { 
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0px); 
+    opacity: 1;
+  }
+}
+
+
+.result-card {
+  font-family: "Noto Serif JP", serif;
+  font-optical-sizing: auto;
+  background: white;
+  padding: 10px 20px 40px;
+  margin: 0 auto;
+  position: relative;
+  max-width: 300px;
+  left: 0; right: 0; bottom: 100px;
+  display: flex;
+  flex-direction: column;
+	border: double 8px red;
+  animation: text-float 1.5s;
+}
+
+.result-card > .title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.result-card > .fortune {
+  margin: 0;
+  color: red;
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  line-height: 1;
+}
+
+.omen-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.omen-card > .omen-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.omen-card > .omen {
+  margin: 0;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.omen-card > .wish {
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.3;
+  transform: skewX(-16deg);
+}
+
+.result-card > .buttons {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.result-card > .buttons > div {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  button {
+    flex-grow: 1;
+  }
+}
