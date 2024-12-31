@@ -97,13 +97,19 @@ function App() {
 
   const share = async () => {
     try {
-      await navigator.share({
-        title: 'れおみくじ2025',
-        text: `神は言っている...「${omen}」と...`,
-        url: window.location.href,
-      });
+      if (navigator.share) {
+        await navigator.share({
+          title: 'れおみくじ2025',
+          text: `神は言っている...「${omen}」と...`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(`神は言っている...「${omen}」と... ${window.location.href}`);
+        alert('クリップボードにコピーしました。');
+      }
     } catch (error) {
       console.error('シェアに失敗しました。', error);
+      alert('シェアに失敗しました。');
     }
   }
 
