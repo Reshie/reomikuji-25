@@ -5,6 +5,7 @@ from pydantic import BaseModel
 import openai
 from openai import OpenAI
 import textwrap
+import json
 
 app = FastAPI()
 
@@ -30,7 +31,8 @@ def call_api(request: WishRequest):
                 # 条件
                 - 20文字以上30文字以下でなければ再生成せよ
                 - だである調を用いよ
-                - 他者や大きな目的に関する願いには真剣に、自己中心的または軽い願いには皮肉を込めて答えよ
+                - 他者や大きな目的に関する願い(is_serious: true)には真剣に、自己中心的または軽い願い(is_serious: false)には皮肉を込めて答えよ
+                - JSON形式で、応答をresponse、願いの種類をis_seriousというキーとせよ
                 '''
         wish = request.q
         completion = client.chat.completions.create(
@@ -44,12 +46,18 @@ def call_api(request: WishRequest):
                     "role": "user",
                     "content": wish.strip()
                 }
-            ]
+            ],
+            response_format={ "type": "json_object" }
         )
-        print(completion)
+
+        res = completion.choices[0].message.content
+        res = json.loads(res)
+        print(res)
+
         response = {
             "wish": wish.strip(),
-            "response": completion.choices[0].message.content
+            "response": res["response"],
+            "is_serious": res["is_serious"]
         }
         return response
     except openai.error.RateLimitError:

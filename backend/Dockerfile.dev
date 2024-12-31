@@ -28,7 +28,7 @@ RUN pip install --no-cache-dir --upgrade pip
 RUN pip install pipenv
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 8080
 
 # Set user
 USER $USERNAME
