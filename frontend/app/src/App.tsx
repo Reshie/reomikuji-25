@@ -16,10 +16,9 @@ function App() {
     { name: "吉", weight: 0.2},
   ];
   const fortune_bad = [
-    { name: "吉", weight: 0.4},
     { name: "小吉", weight: 0.3},
-    { name: "凶", weight: 0.2},
-    { name: "大凶", weight: 0.1},
+    { name: "凶", weight: 0.5},
+    { name: "大凶", weight: 0.2},
   ];
 
   const handleRequestOmen = async () => {
@@ -71,8 +70,6 @@ function App() {
   const getFortune = (isSerious: boolean) => {
     const fortunes = isSerious ? fortune_good : fortune_bad;
 
-    console.log(fortunes);
-    
     const random = Math.random();
 
     let cumulativeWeight = 0;
